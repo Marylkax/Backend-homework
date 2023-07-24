@@ -5,7 +5,6 @@ const router = express.Router();
 router.patch("/character/:id/", (req, res) => {
   console.log({ update: req.body, id: req.params.id });
 
-  const { name, species, gender, origin } = req.body;
   const id = Number(req.params.id);
 
   const indexOf = req.rickandmorty.findIndex((item) => {
@@ -16,7 +15,7 @@ router.patch("/character/:id/", (req, res) => {
     res.send({ status: 0, reason: "ID not found" });
     return;
   }
-
+  const { name, species, gender, origin } = req.body;
   console.log(indexOf);
 
   //Only updates one of the ones we send, but also doesnt allow input of data outside of name/ origin/ species/ gender. This is secure
