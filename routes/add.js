@@ -21,7 +21,7 @@ router.post("/character", async (req, res) => {
 
   try {
     await asyncMySQL(
-      `INSERT INTO charcters (char_name,species, origin, gender) VALUES ("${char_name}","${species}", "${gender}","${origin}") ;`
+      `INSERT INTO characters (char_name,species, origin, gender) VALUES ("${char_name}","${species}", "${gender}","${origin}") ;`
     );
     res.send({ status: 1 });
   } catch (error) {
@@ -30,5 +30,3 @@ router.post("/character", async (req, res) => {
 });
 
 module.exports = router;
-
-// only getting a status error 0 for add
