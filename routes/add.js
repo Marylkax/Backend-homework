@@ -5,7 +5,6 @@ const asyncMySQL = require("../mySQL/connection");
 router.post("/character", async (req, res) => {
   const { char_name, species, gender, origin } = req.body;
 
-  //check the contents
   if (
     !char_name ||
     !species ||
@@ -19,6 +18,7 @@ router.post("/character", async (req, res) => {
     res.send({ status: 0, reason: "Incomplete or invalid request" });
     return;
   }
+
   try {
     await asyncMySQL(
       `INSERT INTO charcters (char_name,species, origin, gender) VALUES ("${char_name}","${species}", "${gender}","${origin}") ;`
@@ -30,3 +30,5 @@ router.post("/character", async (req, res) => {
 });
 
 module.exports = router;
+
+// only getting a status error 0 for add
