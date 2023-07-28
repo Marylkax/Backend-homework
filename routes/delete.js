@@ -1,9 +1,8 @@
 const express = require("express");
+const asyncMySQL = require("../mySQL/connection");
 const router = express.Router();
 
-router.delete("/character/:id", (req, res) => {
-  console.log(req.params.id);
-
+router.delete("/character/:id", async (req, res) => {
   const id = Number(req.params.id);
 
   //check that id is a number
@@ -12,17 +11,9 @@ router.delete("/character/:id", (req, res) => {
     return;
   }
 
-  const indexOf = req.rickandmorty.findIndex((item) => {
-    return item.id === id;
-  });
-
-  //-1 out of array, doesn't exist
-  if (indexOf < 0) {
-    res.send({ status: 0, reason: "ID not found" });
-  }
-
-  req.rickandmorty.splice(indexOf, 1);
-
+  const result = await asyncMySQL(
+    `DELETE FROM characters WHERE id LIKE ${id};`
+  );
   res.send({ status: 1 });
 });
 
