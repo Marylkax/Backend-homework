@@ -21,4 +21,21 @@ router.get("/character/:id", async (req, res) => {
   res.send({ status: 0, reason: ` id not found` });
   console.log(results);
 });
+
+router.get("/charactersfromEarth", async (req, res) => {
+  const results = await asyncMySQL(
+    `SELECT characters.species, characters.char_name FROM characters JOIN location ON characters.id = location.id WHERE origin = 'Earth (C-137)'OR origin = 'Earth (Replacement Dimension)';`
+  );
+
+  res.send({ status: 1, results });
+});
+
+router.get("/charactersandlocations", async (req, res) => {
+  const results = await asyncMySQL(
+    `SELECT * FROM characters LEFT JOIN location ON characters.id = location.id;`
+  );
+
+  res.send({ status: 1, results });
+});
+
 module.exports = router;

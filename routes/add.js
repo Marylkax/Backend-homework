@@ -12,8 +12,7 @@ router.post("/character", async (req, res) => {
     !origin ||
     typeof char_name !== "string" ||
     typeof species !== "string" ||
-    typeof gender !== "string" ||
-    typeof origin !== "string"
+    typeof gender !== "string"
   ) {
     res.send({ status: 0, reason: "Incomplete or invalid request" });
     return;
@@ -21,7 +20,7 @@ router.post("/character", async (req, res) => {
 
   try {
     await asyncMySQL(
-      `INSERT INTO characters (char_name,species, origin, gender) VALUES ("${char_name}","${species}", "${gender}","${origin}") ;`
+      `INSERT INTO characters (char_name,species,  gender) VALUES ("${char_name}","${species}", "${gender}") ;`
     );
     res.send({ status: 1 });
   } catch (error) {
